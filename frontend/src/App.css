@@ -1078,6 +1078,8 @@ button {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+
+
 }
 
 /* =========================================================
@@ -4075,4 +4077,618 @@ button {
 
 .ai-switch-notice svg {
   flex-shrink: 0;
+}
+
+/* =========================================================
+   TOKENWISE AI WORKSPACE — LAYOUT FIX
+   ========================================================= */
+
+.ai-page {
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.ai-page-header {
+  flex: 0 0 auto;
+}
+
+/* Main AI workspace */
+.ai-workspace {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  overflow: hidden;
+}
+
+.ai-workspace {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Prevent children from forcing the workspace to expand */
+.ai-workspace > * {
+  min-height: 0;
+}
+
+/* Keep model selection visible */
+.ai-model-bar {
+  flex: 0 0 auto;
+}
+
+/* Keep automatic switching visible */
+.ai-auto-switch-bar {
+  flex: 0 0 auto;
+}
+
+/* Keep the switch notification from stretching the layout */
+.ai-switch-notice {
+  flex: 0 0 auto;
+}
+
+/* Optimization panel */
+.ai-compression-result {
+  flex: 0 1 auto;
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Chat occupies remaining vertical space */
+.ai-chat {
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+}
+
+/* Message list scrolls independently */
+.ai-messages {
+  min-height: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: visible;
+}
+
+/* Prevent long AI responses from expanding the page */
+.ai-message {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ai-message-bubble {
+  min-width: 0;
+  max-width: 100%;
+
+  overflow-wrap: anywhere;
+}
+
+/* Keep the composer visible */
+.ai-composer {
+  flex: 0 0 auto;
+  min-width: 0;
+
+  position: relative;
+  z-index: 5;
+
+  background: #ffffff;
+}
+
+/* Keep the disclaimer from consuming unnecessary height */
+.ai-disclaimer {
+  flex: 0 0 auto;
+
+  margin: 0;
+  text-align: center;
+}
+
+/* Center the empty conversation state */
+.ai-empty-state {
+  min-height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Handle wide code blocks and Markdown tables */
+.ai-code-block,
+.ai-markdown-table-wrapper {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.ai-code-block code {
+  white-space: pre;
+}
+
+/* Avoid flex children forcing the workspace wider */
+.ai-workspace > * {
+  min-width: 0;
+}
+
+/* Smaller screens */
+@media (max-width: 768px) {
+  .ai-workspace {
+    gap: 6px;
+  }
+
+  .ai-compression-result {
+    max-height: 30%;
+  }
+
+  .ai-chat {
+    min-height: 0;
+  }
+}
+
+/* =========================================================
+   AI WORKSPACE — MAXIMIZE CHAT SPACE
+   ========================================================= */
+
+.ai-page {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ai-page-header {
+  display: none;
+}
+
+.ai-workspace {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+/* Keep model selection and automatic switching visible */
+.ai-model-bar,
+.ai-auto-switch-bar,
+.ai-switch-notice {
+  flex-shrink: 0;
+}
+/* Scrollable optimization panel */
+.ai-compression-result {
+  flex: 0 1 180px;
+  min-height: 0;
+  max-height: 180px;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  box-sizing: border-box;
+}
+
+/* Keep the panel header visible while scrolling */
+.ai-result-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f8fafc;
+}
+
+/* Keep the statistics inside the panel */
+.ai-token-stats {
+  min-height: 0;
+}
+
+
+/* Collapsible optimization panel */
+
+.ai-chat-layout {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.ai-chat-layout > .ai-chat {
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.ai-optimization-panel {
+  display: flex;
+  flex: 0 0 42px;
+  flex-direction: column;
+  min-width: 42px;
+  min-height: 0;
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid #e1e6ee;
+  border-radius: 10px;
+  background: #fff;
+  transition: flex-basis 0.25s ease;
+}
+
+.ai-optimization-panel.open {
+  flex-basis: 300px;
+}
+
+.ai-optimization-tab {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-shrink: 0;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px;
+  border: 0;
+  border-bottom: 1px solid #e1e6ee;
+  background: transparent;
+  color: #536782;
+  cursor: pointer;
+}
+
+.ai-optimization-tab:hover {
+  background: #f4f7fc;
+}
+
+.ai-optimization-tab span {
+  display: none;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ai-optimization-panel.open .ai-optimization-tab span {
+  display: inline;
+}
+
+.ai-optimization-panel:not(.open) .ai-optimization-tab {
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 14px 8px;
+}
+
+.ai-optimization-panel:not(.open) .ai-optimization-tab span {
+  display: inline;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+}
+
+.ai-optimization-panel-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.ai-optimization-panel-content .ai-compression-result {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  overflow: visible;
+}
+
+.ai-optimization-panel-content .ai-token-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.ai-optimization-panel-content .ai-token-stat {
+  min-width: 0;
+}
+
+.ai-optimization-panel-content .ai-token-stat strong {
+  overflow-wrap: anywhere;
+}
+
+.ai-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ai-optimization-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ai-optimization-close:hover {
+  background: #eef2f7;
+}
+
+@media (max-width: 700px) {
+  .ai-optimization-panel.open {
+    flex-basis: 240px;
+    min-width: 0;
+  }
+
+  .ai-optimization-panel-content {
+    padding: 8px;
+  }
+
+  .ai-optimization-panel-content .ai-token-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-optimization-panel {
+    transition: none;
+  }
+}
+
+
+/* =========================================================
+   TOKENWISE AI WORKSPACE — LAYOUT FIX
+   ========================================================= */
+
+.ai-page {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ai-workspace {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* =========================================================
+   CHAT + OPTIMIZATION PANEL
+   ========================================================= */
+
+.ai-chat-layout {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Chat must shrink to fit the available height. */
+.ai-chat-layout > .ai-chat {
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+/* Allow long messages and Markdown content to wrap. */
+.ai-messages {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ai-message {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ai-message-bubble {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.ai-markdown-table-wrapper {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* =========================================================
+   VERTICAL OPTIMIZATION TAB
+   ========================================================= */
+
+.ai-optimization-panel {
+  display: flex;
+  flex: 0 0 42px;
+  flex-direction: column;
+  width: 42px;
+  min-width: 42px;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #e1e6ee;
+  border-radius: 10px;
+  background: #fff;
+  transition:
+    width 0.22s ease,
+    flex-basis 0.22s ease;
+}
+
+.ai-optimization-panel.open {
+  flex: 0 0 300px;
+  width: 300px;
+  min-width: 0;
+}
+
+.ai-optimization-tab {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex: 0 0 44px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  border: 0;
+  border-bottom: 1px solid #e1e6ee;
+  background: transparent;
+  color: #536782;
+  cursor: pointer;
+}
+
+.ai-optimization-tab:hover {
+  background: #f4f7fc;
+}
+
+.ai-optimization-tab span {
+  display: none;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ai-optimization-panel:not(.open) .ai-optimization-tab {
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 12px 6px;
+}
+
+.ai-optimization-panel:not(.open) .ai-optimization-tab span {
+  display: inline;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.ai-optimization-panel.open .ai-optimization-tab span {
+  display: inline;
+}
+
+/* Use the panel's available space instead of adding a second
+   unnecessary scrolling container. */
+.ai-optimization-panel-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 12px;
+  overflow: visible;
+}
+
+.ai-optimization-panel-content .ai-compression-result {
+  width: 100%;
+  max-height: none;
+  height: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.ai-optimization-panel-content .ai-token-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.ai-optimization-panel-content .ai-token-stat {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ai-optimization-panel-content .ai-token-stat strong {
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   FIXED-BOTTOM COMPOSER WITHIN THE WORKSPACE
+   ========================================================= */
+
+.ai-composer {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  margin-top: 10px;
+  z-index: 2;
+}
+
+.ai-disclaimer {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+
+/* Keep errors from stretching the chat area unnecessarily. */
+.ai-error {
+  flex: 0 0 auto;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+/* =========================================================
+   SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .ai-optimization-panel.open {
+    flex-basis: 240px;
+    width: 240px;
+  }
+
+  .ai-optimization-panel-content {
+    padding: 8px;
+  }
+
+  .ai-optimization-panel-content .ai-token-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-optimization-panel {
+    transition: none;
+  }
 }

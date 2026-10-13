@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import {
   BarChart3,
   Bot,
@@ -7,8 +9,27 @@ import {
   Zap,
 } from "lucide-react";
 
-
 function Sidebar({ activePage, setActivePage }) {
+  const [userName, setUserName] = useState(
+    () => localStorage.getItem("tokenwise_user_name") || "Rohith"
+  );
+
+  useEffect(() => {
+    const updateUserName = () => {
+      setUserName(
+        localStorage.getItem("tokenwise_user_name") || "Rohith"
+      );
+    };
+
+    window.addEventListener("tokenwise-profile-updated", updateUserName);
+
+    return () => {
+      window.removeEventListener(
+        "tokenwise-profile-updated",
+        updateUserName
+      );
+    };
+  }, []);
 
   const navigation = [
     {
@@ -25,150 +46,72 @@ function Sidebar({ activePage, setActivePage }) {
     },
   ];
 
-
   return (
-
     <aside className="sidebar">
-
-
-      {/* =================================================
-          BRAND
-      ================================================= */}
-
+      {/* BRAND */}
       <div className="sidebar-brand">
-
         <div className="sidebar-logo">
           <Zap size={18} />
         </div>
 
         <div>
-
-          <h1>
-            TokenWise
-          </h1>
-
-          <span>
-            Context Optimization
-          </span>
-
+          <h1>TokenWise</h1>
+          <span>Context Optimization</span>
         </div>
-
       </div>
 
-
-      {/* =================================================
-          NAVIGATION
-      ================================================= */}
-
+      {/* NAVIGATION */}
       <nav className="sidebar-nav">
-
-        <p className="nav-section-title">
-          Workspace
-        </p>
-
+        <p className="nav-section-title">Workspace</p>
 
         {navigation.map((item) => {
-
           const Icon = item.icon;
-
-          const isActive =
-            activePage === item.name;
-
+          const isActive = activePage === item.name;
 
           return (
-
             <button
               key={item.name}
-              className={`nav-item ${
-                isActive ? "active" : ""
-              }`}
-              onClick={() =>
-                setActivePage(item.name)
-              }
+              className={`nav-item ${isActive ? "active" : ""}`}
+              onClick={() => setActivePage(item.name)}
               type="button"
             >
-
               <Icon size={17} />
-
-              <span>
-                {item.name}
-              </span>
-
+              <span>{item.name}</span>
             </button>
-
           );
-
         })}
 
-
-        {/* =================================================
-            SYSTEM
-        ================================================= */}
-
+        {/* SYSTEM */}
         <p className="nav-section-title settings-section">
           System
         </p>
 
-
         <button
           className={`nav-item ${
-            activePage === "Settings"
-              ? "active"
-              : ""
+            activePage === "Settings" ? "active" : ""
           }`}
-          onClick={() =>
-            setActivePage("Settings")
-          }
+          onClick={() => setActivePage("Settings")}
           type="button"
         >
-
           <Settings size={17} />
-
-          <span>
-            Settings
-          </span>
-
+          <span>Settings</span>
         </button>
-
       </nav>
 
-
-      {/* =================================================
-          PROFILE
-      ================================================= */}
-
+      {/* PROFILE */}
       <div className="sidebar-footer">
-
         <div className="sidebar-profile">
-
           <div className="sidebar-profile-avatar">
-
             <User size={16} />
-
           </div>
-
 
           <div className="sidebar-profile-info">
-
-            <strong>
-              Rohith
-            </strong>
-
-            <span>
-              Student
-            </span>
-
+            <strong>{userName}</strong>
           </div>
-
         </div>
-
       </div>
-
     </aside>
-
   );
-
 }
-
 
 export default Sidebar;

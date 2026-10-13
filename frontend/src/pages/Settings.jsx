@@ -68,30 +68,31 @@ const models = [
 
 function Settings() {
 
-  const [userName, setUserName] =
-    useState("Rohith");
+ const [userName, setUserName] = useState(
+  () => localStorage.getItem("tokenwise_user_name") || "Rohith"
+);
 
   const [defaultModel, setDefaultModel] =
-    useState("gpt-4o-mini");
+    useState(() => localStorage.getItem("tokenwise_default_model") || "gpt-4o-mini");
 
   const [temperature, setTemperature] =
-    useState("0.7");
+    useState(() => localStorage.getItem("tokenwise_temperature") || "0.7");
 
   const [maxContext, setMaxContext] =
-    useState("8000");
+    useState(() => localStorage.getItem("tokenwise_max_context") || "8000");
 
   const [compressionEnabled, setCompressionEnabled] =
-    useState(true);
+    useState(() => localStorage.getItem("tokenwise_compression_enabled") === "true");
 
   const [preserveCode, setPreserveCode] =
-    useState(true);
+    useState(() => localStorage.getItem("tokenwise_preserve_code") === "true");
 
   const [preserveSystemMessages, setPreserveSystemMessages] =
-    useState(true);
+    useState(() => localStorage.getItem("tokenwise_preserve_system_messages") === "true");
 
  const [automaticModelSwitching, setAutomaticModelSwitching] =
   useState(() => {
-    return localStorage.getItem("automaticModelSwitching") === "true";
+    return localStorage.getItem("tokenwise_automatic_model_switching") === "true";
   });
   const [saved, setSaved] =
     useState(false);
@@ -107,6 +108,7 @@ function Settings() {
     "tokenwise_user_name",
     userName
   );
+  window.dispatchEvent(new Event("tokenwise-profile-updated"));
 
   localStorage.setItem(
     "tokenwise_default_model",
